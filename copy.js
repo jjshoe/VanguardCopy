@@ -41,11 +41,11 @@ for (var x = 0; x < rows.length; x++)
     {
       if (output[3].match(/-/))
       {
-        fullOutput += output[0] + ',' + output[1] + ',' + output[4] + ',' + output[5] + ',' + output[8] + '\n';
+        fullOutput += output[0] + '\t' + output[1] + '\t' + output[4] + '\t' + output[5] + '\t' + output[8] + '\n';
       }
       else
       {
-        fullOutput += output[0] + ',' + output[1] + ',' + output[3] + ',' + output[4] + ',' + output[7] + '\n';
+        fullOutput += output[0] + '\t' + output[1] + '\t' + output[3] + '\t' + output[4] + '\t' + output[7] + '\n';
       }
     }
   }
