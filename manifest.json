@@ -17,11 +17,10 @@
       "16": "icon16.png",
       "48": "icon48.png"
    },
-   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvzhP2lO3MpmtoVb0ZGZhaasKi4DMBceI9zCKUDqdGPiWt2tReFBuJQzrfZUnBeXj1YHcRTrJ4tB6igk+0Bn6dNx11GX340RSxEQOq/QMVeQPdNEgr4ZBr5Fo2kcF3iRmt35slIRuSXqbexQmTE0ObxqD3Jdjt+3BDB6DYqBrwrXpJPHUorpiVSWVQjz4Oh7mwAEa4LaDg3kNsmxO5qcSoQWndeari1rW7y4IFbKPqjWMByS+h3wsCi2IXZkxkVzigqdzSN1CNYIvV8Dj9jA110bWAepqB//qnrJf27Z2NQyIrwUeYO7w+7XWGEnPREVbV2iU1ypIh6LHuKYf/aM3LQIDAQAB",
    "manifest_version": 2,
    "name": "Vanguard Copy",
    "permissions": [ "activeTab", "clipboardWrite" ],
    "short_name": "VC",
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.1"
+   "version": "1.0"
 }
