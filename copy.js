@@ -4,7 +4,7 @@ function findText(element)
 
   if (element.textContent && element.textContent.length > 0)
   {
-    output.push(element.textContent.trim());
+    output.push(element.innerText.trim());
   }
 
   if (element.children && element.children.length > 0)
@@ -18,41 +18,66 @@ function findText(element)
   return output.join(' ');
 }
 
-var rows = document.getElementsByTagName("tr");
+function getTableHeaders()
+{
+  var table = document.getElementsByTagName("table")[1];
+  var headers = table.getElementsByTagName("th")
 
-var fullOutput = '<textarea id="vanguard_copy" style="width: 0px;">';
+  header_position = {};
+
+  for (h = 0; h < headers.length; h++)
+  {
+    text = findText(headers[h]);
+
+    if (text.includes("Symbol"))
+    {
+      header_position['symbol'] = h + 1;
+    }
+    else if (text.includes("Name"))
+    {
+      header_position['name'] = h + 1;
+    }
+    else if (text.includes("Price"))
+    {
+      header_position['price'] = h + 1;
+    }
+    else if (text.includes("Current balance"))
+    {
+      header_position['balance'] = h + 1;
+    }
+    else if (text.includes("Quantity"))
+    {
+      header_position['quantity'] = h + 1;
+    }
+  }
+  
+  return header_position
+}
+
+headers = getTableHeaders();
+
+var rows = document.getElementsByTagName("tr");
+var fullOutput = '';
 
 for (var x = 0; x < rows.length; x++)
 {
-  if (rows[x].cells.length == 9 || rows[x].cells.length == 10)
+  if (rows[x].cells.length == 10)
   {
-    var output = [];
-
-    for (var y = 0; y < rows[x].cells.length; y++)
-    {
-
-      if (rows[x].cells[y].nodeName == 'TD')
-      {
-        output.push(findText(rows[x].cells[y]));
-      }
-    }
-
-    if (output.length > 0) 
-    {
-      if (output[3].match(/-/))
-      {
-        fullOutput += output[0] + '\t' + output[1] + '\t' + output[4] + '\t' + output[5] + '\t' + output[8] + '\n';
-      }
-      else
-      {
-        fullOutput += output[0] + '\t' + output[1] + '\t' + output[3] + '\t' + output[4] + '\t' + output[7] + '\n';
-      }
-    }
+    fullOutput += findText(rows[x].cells[headers['symbol']]) + '\t';
+    fullOutput += findText(rows[x].cells[headers['name']]) + '\t';
+    fullOutput += findText(rows[x].cells[headers['quantity']]) + '\t';
+    fullOutput += findText(rows[x].cells[headers['price']]) + '\t';
+    fullOutput += findText(rows[x].cells[headers['balance']]) + '\t';
+    fullOutput += '\n';
   }
 }
 
-document.body.innerHTML += fullOutput + '</textarea>';
+var textArea = document.createElement("textArea");
+textArea.textContent = fullOutput;
+document.body.appendChild(textArea);
 
-var textArea = document.getElementById('vanguard_copy');
 textArea.select();
-var result = document.execCommand('copy');
+document.execCommand('copy');
+textArea.blur();
+
+document.body.removeChild(textArea);
