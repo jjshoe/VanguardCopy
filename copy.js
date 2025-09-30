@@ -31,53 +31,91 @@ function getTableHeaders()
 
     if (text.includes("Symbol"))
     {
-      header_position['symbol'] = h + 1;
+      header_position['symbol'] = h;
     }
     else if (text.includes("Name"))
     {
-      header_position['name'] = h + 1;
+      header_position['name'] = h;
     }
     else if (text.includes("Price"))
     {
-      header_position['price'] = h + 1;
+      header_position['price'] = h;
     }
     else if (text.includes("Current balance"))
     {
-      header_position['balance'] = h + 1;
+      header_position['balance'] = h;
     }
     else if (text.includes("Quantity"))
     {
-      header_position['quantity'] = h + 1;
+      header_position['quantity'] = h;
     }
   }
-  
+
   return header_position
 }
 
-headers = getTableHeaders();
+(() => {
+  var btn = document.querySelector('[data-testid="expand-accounts"]');
+  if (btn) btn.click();
 
-var rows = document.getElementsByTagName("tr");
-var fullOutput = '';
-
-for (var x = 0; x < rows.length; x++)
-{
-  if (rows[x].cells.length == 10)
-  {
-    fullOutput += findText(rows[x].cells[headers['symbol']]) + '\t';
-    fullOutput += findText(rows[x].cells[headers['name']]) + '\t';
-    fullOutput += findText(rows[x].cells[headers['quantity']]) + '\t';
-    fullOutput += findText(rows[x].cells[headers['price']]) + '\t';
-    fullOutput += findText(rows[x].cells[headers['balance']]) + '\t';
-    fullOutput += '\n';
+  function headersReady() {
+    try {
+      var h = getTableHeaders();
+      return h && h.symbol != null && h.quantity != null && h.price != null && h.balance != null;
+    } catch (e) {
+      return false;
+    }
   }
-}
 
-var textArea = document.createElement("textArea");
-textArea.textContent = fullOutput;
-document.body.appendChild(textArea);
+  function runOriginal() {
+    headers = getTableHeaders();
+	  
+    var rows = document.getElementsByTagName("tr");
+    var fullOutput = '';
 
-textArea.select();
-document.execCommand('copy');
-textArea.blur();
+    for (var x = 0; x < rows.length; x++)
+    {
+      if (rows[x].cells.length == 10 && rows[x].getElementsByTagName('th').length != 9)
+      {
+        fullOutput += findText(rows[x].cells[headers['symbol']]).replace(/\n/, '\t') + '\t';
+        fullOutput += findText(rows[x].cells[headers['quantity']]) + '\t';
+        fullOutput += findText(rows[x].cells[headers['price']]) + '\t';
+        fullOutput += findText(rows[x].cells[headers['balance']]) + '\t';
+        fullOutput += '\n';
+      }
+    }
 
-document.body.removeChild(textArea);
+    var textArea = document.createElement("textArea");
+    textArea.textContent = fullOutput;
+    document.body.appendChild(textArea);
+
+    textArea.select();
+    document.execCommand('copy');
+    textArea.blur();
+
+    document.body.removeChild(textArea);
+  }
+
+  // If ready now, run immediately
+  if (headersReady()) {
+    runOriginal();
+    return;
+  }
+
+  // Otherwise, observe until headers are ready
+  var observer = new MutationObserver(function() {
+    if (headersReady()) {
+	    console.log('headers found');
+      observer.disconnect();
+      runOriginal();
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    characterData: true
+  });
+})();
+
