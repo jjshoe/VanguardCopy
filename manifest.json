@@ -18,5 +18,5 @@
    "name": "Vanguard Copy",
    "permissions": [ "activeTab", "clipboardWrite", "scripting" ],
    "short_name": "VC",
-   "version": "1.4"
+   "version": "1.6"
 }
