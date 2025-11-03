@@ -1,22 +1,29 @@
 {
-   "background": {
-      "service_worker": "hook_vanguard.js"
-   },
-   "action": {
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.web.vanguard.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
       "default_icon": "icon128.png",
       "default_title": "Manage Vanguard Copy settings"
-   },
-   "description": "This extension makes it easy to copy your investment information into a spreadsheet",
-   "homepage_url": "http://github.com/jjshoe/VanguardCopy",
-   "icons": {
-      "128": "icon128.png",
-      "16": "icon16.png",
-      "48": "icon48.png"
-   },
-   "host_permissions": ["https://holdings.web.vanguard.com/"],
-   "manifest_version": 3,
-   "name": "Vanguard Copy",
-   "permissions": [ "activeTab", "clipboardWrite", "scripting" ],
-   "short_name": "VC",
-   "version": "1.6"
+  },
+  "description": "This extension makes it easy to copy your investment information into a spreadsheet",
+  "homepage_url": "http://github.com/jjshoe/VanguardCopy",
+  "icons": {
+    "128": "icon128.png",
+    "16": "icon16.png",
+    "48": "icon48.png"
+  },
+  "host_permissions": ["https://holdings.web.vanguard.com/"],
+  "manifest_version": 3,
+  "name": "Vanguard Copy",
+  "permissions": [ "activeTab", "clipboardWrite", "scripting" ],
+  "short_name": "VC",
+  "version": "1.7.0"
 }

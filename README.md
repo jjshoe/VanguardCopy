@@ -1,7 +1,8 @@
 # Vanguard Copy
 
 ### Copy
-Simply click the clipboard icon in your tool bar to copy all your vanguard account data into your clipboard.
+Simply click the clipboard icon in your tool bar to copy all your vanguard account data into your clipboard.  
+You can now click the icon on any page once you're logged in, you no longer need to do it from your holdings.  
 
 Then all you have to do is paste into your worksheet!
 
