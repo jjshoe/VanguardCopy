@@ -4,7 +4,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*.web.vanguard.com/*"],
+      "matches": ["https://*.vanguard.com/*"],
       "js": ["content.js"],
       "run_at": "document_start"
     }
@@ -20,10 +20,10 @@
     "16": "icon16.png",
     "48": "icon48.png"
   },
-  "host_permissions": ["https://holdings.web.vanguard.com/"],
+  "host_permissions": ["https://*.vanguard.com/*"],
   "manifest_version": 3,
   "name": "Vanguard Copy",
   "permissions": [ "activeTab", "clipboardWrite", "scripting" ],
   "short_name": "VC",
-  "version": "1.7.0"
+  "version": "1.7.1"
 }
